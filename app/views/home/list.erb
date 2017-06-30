@@ -1,0 +1,39 @@
+
+<p>로그인된 아이디 : <%=@email%></p>
+
+<a href="/logins/sign_up">회원가입</a>
+
+<a href="/logins/sign_in">로그인</a>
+
+<%if login_signed_in? %>
+<a href="/logins/sign_out">로그아웃</a> 
+<%end%>
+
+
+<div class="container">
+      
+    <h1>게시판</h1>
+    <p>로그인을 해야 글을 쓸 수 있어요</p>
+
+    <table class="table">
+        <tr>
+            <td>제목</td>
+            <td>작성자</td>
+            <td>작성일</td>
+            <td>조회수</td>
+        </tr>
+    <%@all_post.each do |p|%>    
+        <tr>
+            <td><a href="/home/detail/<%=p.id%>"><%=p.title%></a></td>
+            <td><%=p.writer%></td>
+            <td><%=p.created_at.in_time_zone("Asia/Seoul").strftime("%Y년%m월%d일 %H시%M분%S초") %></td>
+            <td><%=p.hit%></td>
+        </tr>
+    <%end%>
+    </table>
+    
+    <%if login_signed_in? %>
+    <a href="/home/index">글쓰러 가기</a>
+    <%end%>
+    
+</div>
